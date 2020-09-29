@@ -1,5 +1,7 @@
 "use strict";
 //json som sparar ibockade städer till localStorage
+let savedCities = [];
+const localStorageCity = 'savedCity';
 
 //fetch som hämtar json-filerna med länder och städer
 fetch('land.json')
@@ -47,8 +49,8 @@ function printCities(landdata, staddata){
             cityList.appendChild(city);
             city.insertAdjacentHTML('beforeend', staddata[j].stadname);
             city.addEventListener('click', function(){
-                 printInfo(staddata[j], landdata);
-                 console.log("klick på staden");
+                printInfo(staddata[j], landdata);
+                console.log("klick på staden");
             });
         }
     }
@@ -60,19 +62,42 @@ function printInfo(staddata, landdata){
     console.log("skriver ut info om: ", staddata.stadname);
     document.getElementById('fact').innerHTML=staddata.stadname + ' är en stad i ' + landdata.countryname + ' där det bor ' + staddata.population + ' personer.' + '<br/>' + 'Jag har besökt ' + staddata.stadname;
     let visitedBtn = document.createElement('INPUT');
-    visitedBtn.setAttribute('type', 'checkbox');
     fact.appendChild(visitedBtn);
-
-
+    visitedBtn.setAttribute('type', 'checkbox');
+    visitedBtn.addEventListener('click', function(){
+        saveCity(visitedBtn, staddata, savedCities);
+    });
 }
 
 //funktion som sparar data om staden vars ruta klickats i och lagrar infon i en array i localStorage
+function saveCity(visitedBtn, cityFact, savedCities){
+    if(visitedBtn.checked){
+        if (cityExists(cityFact.stadname)){
+            return;
+        }
+
+        let newCity = {
+            stadname: cityFact.stadname,
+            population: cityFact.population
+        };
+        savedCities.push(newCity);
+        console.log(savedCities);
+
+        let cityString = JSON.stringify(savedCities);
+        
+        localStorage.setItem('savedCity',cityString);
+        console.log(localStorage.savedCity);
+    }
+}
 
 
-//funktion som skriver ut alla besökta städer från localStorage
-    
-//funktion som rensar de sparade städerna i localStorage
-function clearLs()
-{
-    console.log("data rensas");
+function cityExists(cityName){
+    let found = false;
+    for(var i=0; i<savedCities.length; i++) {
+        if (savedCities[i].stadname == cityName) {
+            found = true;
+            break;
+        }
+    }
+    return found;
 }
