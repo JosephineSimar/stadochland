@@ -1,6 +1,8 @@
 "use strict";
 //json som sparar ibockade städer till localStorage
 let savedCities = [];
+readLocalStorage();
+
 const localStorageCity = 'savedCity';
 
 //fetch som hämtar json-filerna med länder och städer
@@ -64,13 +66,16 @@ function printInfo(staddata, landdata){
     let visitedBtn = document.createElement('INPUT');
     fact.appendChild(visitedBtn);
     visitedBtn.setAttribute('type', 'checkbox');
+    if (cityExists(staddata.stadname)){
+        visitedBtn.checked = true;
+    }
     visitedBtn.addEventListener('click', function(){
-        saveCity(visitedBtn, staddata, savedCities);
+        cityClicked(visitedBtn, staddata);
     });
 }
 
 //funktion som sparar data om staden vars ruta klickats i och lagrar infon i en array i localStorage
-function saveCity(visitedBtn, cityFact, savedCities){
+function cityClicked(visitedBtn, cityFact){
     if(visitedBtn.checked){
         if (cityExists(cityFact.stadname)){
             return;
@@ -83,11 +88,14 @@ function saveCity(visitedBtn, cityFact, savedCities){
         savedCities.push(newCity);
         console.log(savedCities);
 
-        let cityString = JSON.stringify(savedCities);
-        
-        localStorage.setItem('savedCity',cityString);
-        console.log(localStorage.savedCity);
     }
+    else{
+        //när man klickar ur ska staden tas bort från savedCities som sen ska sparas i localStorage
+    }
+    let cityString = JSON.stringify(savedCities);
+    localStorage.setItem('savedCity',cityString);
+    console.log(localStorage.savedCity);
+    
 }
 
 
@@ -100,4 +108,11 @@ function cityExists(cityName){
         }
     }
     return found;
+}
+
+function readLocalStorage(){
+    let savedCitiesJson = localStorage.savedCity;
+    if(savedCitiesJson !== undefined){
+        savedCities = JSON.parse(savedCitiesJson);
+    }
 }
