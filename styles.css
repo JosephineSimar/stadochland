@@ -1,0 +1,93 @@
+body{
+    background-color: rgb(131, 191, 255);
+}
+
+h1{
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    color: rgb(61, 61, 150);
+}
+
+#headline{
+    text-align:left;
+    font-size: medium;
+    padding-left:10px;
+    color:rgb(61, 61, 150);
+}
+
+#menu{
+    list-style-type: none;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: cornflowerblue;
+    margin-bottom: 10px;
+
+}
+#landMenu{
+    padding:5px;
+    font-size: larger;
+    text-align:center;
+    margin-left:8vw;
+    margin-right:8vw;
+    color: white;
+    padding: 10px;
+    
+    
+}
+
+#landMenu:hover{
+    background-color: rgb(25, 25, 75);
+}
+
+
+
+a:link, a:visited, a:active{
+    text-decoration: none;
+    color:rgb(255, 255, 255);
+
+}
+
+#content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#cityMenu{
+    list-style-type: none;
+    font-size: larger;
+    padding: 10px;
+    color:white;
+    background-color: cornflowerblue;
+    margin-right: 70vw;
+    border-style: solid;
+    
+}
+
+#cityMenu:hover{
+    background-color: rgb(25, 25, 75);
+}
+
+#fact{
+    font-size: larger;
+    color: rgb(61, 61, 150);
+    float:right;
+    height: auto;
+    padding: 20px;
+
+}
+
+.stats{
+    text-align:center;
+    font-size:larger;
+    color:rgb(61, 61, 150);
+
+}
+
+#stats{
+    background-color: cornflowerblue;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    padding: 10px;
+}

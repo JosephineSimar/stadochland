@@ -1,15 +1,25 @@
 "use strict";
 
 
-printVisited();
 
-function printVisited() {
+fetch('stad.json')
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(staddata){
+        printVisited(staddata);
+    });
+
+
+function printVisited(staddata) {
     //kollar om det finns något i localStorage först
     let savedCitiesJson = localStorage.savedCity;
     if(savedCitiesJson === undefined){
         return;
     }
-    let savedCities = JSON.parse(savedCitiesJson);
+    let savedCitiesIds = JSON.parse(savedCitiesJson);
+    
+    let savedCities = staddata.filter(city=>savedCitiesIds.includes(city.id));
     for(let i=0; i<savedCities.length; i++){
         document.getElementById('stats').insertAdjacentHTML('beforeend', savedCities[i].stadname+'<br/>')
     }
@@ -17,7 +27,8 @@ function printVisited() {
     for(let j=0; j<savedCities.length; j++){
         people = people + savedCities[j].population;
     }
-    document.getElementById('stats').insertAdjacentHTML('beforeend', '<br/>' + 'Du har haft möjlighet att träffa totalt ' + people + ' lokala stadsbor under dina resor.' );
+    if(savedCities.length > 0) //skriver inte ut om listan är tom
+        document.getElementById('stats').insertAdjacentHTML('beforeend', '<br/>' + 'Du har haft möjlighet att träffa totalt ' + people + ' lokala stadsbor under dina resor.' );
 }
 
 

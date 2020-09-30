@@ -1,9 +1,9 @@
 "use strict";
 //json som sparar ibockade städer till localStorage
 let savedCities = [];
-readLocalStorage();
 
 const localStorageCity = 'savedCity';
+
 
 //fetch som hämtar json-filerna med länder och städer
 fetch('land.json')
@@ -19,6 +19,7 @@ fetch('land.json')
             })
             .then(function(staddata){
                 console.log("staddata: ", staddata);
+                readLocalStorage();
                 printMenu(landdata,staddata);
                 
             })
@@ -30,7 +31,8 @@ function printMenu(landdata,staddata){
     console.log("menyn skrivs ut");
     for(let i=0; i<landdata.length; i++){
         let land = document.createElement('li');
-        menu.appendChild(land);
+        land.setAttribute('id', 'landMenu');
+        menu.insertAdjacentElement('afterbegin', land);
         land.insertAdjacentHTML('beforeend', landdata[i].countryname);
         land.addEventListener('click', function(){
             printCities(landdata[i],staddata);
@@ -48,6 +50,7 @@ function printCities(landdata, staddata){
     for(let j=0; j<staddata.length; j++){
         if(staddata[j].countryid === landdata.id){
             var city = document.createElement('li');
+            city.setAttribute('id', 'cityMenu');
             cityList.appendChild(city);
             city.insertAdjacentHTML('beforeend', staddata[j].stadname);
             city.addEventListener('click', function(){
@@ -66,7 +69,7 @@ function printInfo(staddata, landdata){
     let visitedBtn = document.createElement('INPUT');
     fact.appendChild(visitedBtn);
     visitedBtn.setAttribute('type', 'checkbox');
-    if (cityExists(staddata.stadname)){
+    if (cityExists(staddata.id)){
         visitedBtn.checked = true;
     }
     visitedBtn.addEventListener('click', function(){
@@ -77,20 +80,15 @@ function printInfo(staddata, landdata){
 //funktion som sparar data om staden vars ruta klickats i och lagrar infon i en array i localStorage
 function cityClicked(visitedBtn, cityFact){
     if(visitedBtn.checked){
-        if (cityExists(cityFact.stadname)){
+        if (cityExists(cityFact.id)){
             return;
         }
-
-        let newCity = {
-            stadname: cityFact.stadname,
-            population: cityFact.population
-        };
-        savedCities.push(newCity);
+        savedCities.push(cityFact.id);
         console.log(savedCities);
 
     }
-    else{
-        //när man klickar ur ska staden tas bort från savedCities som sen ska sparas i localStorage
+    else{ //när man klickar ur ska staden tas bort från savedCities som sen ska sparas i localStorage
+        savedCities=savedCities.filter(id=>id!==cityFact.id);
     }
     let cityString = JSON.stringify(savedCities);
     localStorage.setItem('savedCity',cityString);
@@ -99,10 +97,10 @@ function cityClicked(visitedBtn, cityFact){
 }
 
 
-function cityExists(cityName){
+function cityExists(id){
     let found = false;
     for(var i=0; i<savedCities.length; i++) {
-        if (savedCities[i].stadname == cityName) {
+        if (savedCities[i] == id) {
             found = true;
             break;
         }
