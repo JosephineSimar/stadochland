@@ -23,35 +23,24 @@ h1{
     flex-wrap: wrap;
     background-color: cornflowerblue;
     margin-bottom: 10px;
-
 }
+
 #landMenu{
-    padding:5px;
     font-size: larger;
     text-align:center;
     margin-left:8vw;
     margin-right:8vw;
     color: white;
     padding: 10px;
-    
-    
 }
 
 #landMenu:hover{
     background-color: rgb(25, 25, 75);
 }
 
-
-
 a:link, a:visited, a:active{
     text-decoration: none;
     color:rgb(255, 255, 255);
-
-}
-
-#content{
-    display: flex;
-    flex-wrap: wrap;
 }
 
 #cityMenu{
@@ -60,9 +49,13 @@ a:link, a:visited, a:active{
     padding: 10px;
     color:white;
     background-color: cornflowerblue;
-    margin-right: 70vw;
     border-style: solid;
-    
+    width: 400px;
+}
+
+#cityList{
+    width:500px;
+    float:left;
 }
 
 #cityMenu:hover{
@@ -72,21 +65,17 @@ a:link, a:visited, a:active{
 #fact{
     font-size: larger;
     color: rgb(61, 61, 150);
-    float:right;
-    height: auto;
+    float:left;
     padding: 20px;
-
 }
 
 .stats{
     text-align:center;
     font-size:larger;
     color:rgb(61, 61, 150);
-
 }
 
 #stats{
-    background-color: cornflowerblue;
     margin-left: 30vw;
     margin-right: 30vw;
     padding: 10px;
