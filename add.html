@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Lägg till länder och städer</title>
+  </head>
+  <body>
+    <h1>Lägg till fler städer och länder här:</h1>
+    <form action="#" onsubmit="return addCountry(this);">
+      <label for="land">Land:</label><br />
+      <input type="text" id="land" name="land" /><br />
+      <input type="submit" value="Spara" />
+    </form>
+    <form action="#" onsubmit="return addCity(this);">
+      <label for="city">Stad:</label><br />
+      <input type="text" id="city" name="city" /><br />
+      <label for="population">Antal invånare:</label><br />
+      <input type="number" id="population" name="population" /><br />
+      <label for="landDropdown">Välj ett land:</label>
+      <select id="landDropdown" name="landDropdown"></select>
+      <input type="submit" value="Spara" />
+    </form>
+    <script src="add.js"></script>
+  </body>
+</html>
